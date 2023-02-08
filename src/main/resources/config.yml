@@ -1,0 +1,5 @@
+options:
+  color: #ECA798
+  item-linked: '[item]'
+  npe-item-message: '손에 아이템을 들고 있지 않아요 근데 왜 쓰세요 씨~발련아'
+  npe-message-type: 'message'
