@@ -1,5 +1,9 @@
 options:
-  color: #ECA798
+  item-color: '#B5D1B6'
   item-linked: '[item]'
-  npe-item-message: '손에 아이템을 들고 있지 않아요 근데 왜 쓰세요 씨~발련아'
-  npe-message-type: 'message'
+  npe-item-message: 'You have no items in your hand.'
+  npe-message-color: '#B02C3A'
+  npe-message-type: 'actionbar'
+
+# message type : actionbar, message
+# item-color, npe-message-color : hex code
