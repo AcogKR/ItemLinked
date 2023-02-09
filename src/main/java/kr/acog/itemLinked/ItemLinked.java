@@ -3,6 +3,7 @@ package kr.acog.itemLinked;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import net.minecraft.core.IRegistry;
 import org.bukkit.Material;
@@ -50,16 +51,20 @@ public class ItemLinked extends JavaPlugin implements Listener {
         ItemStack handItem = event.getPlayer().getInventory().getItemInMainHand();
 
         if (handItem.getType() == Material.AIR) {
-            if (type.equals("message")) player.sendMessage(color(npeColor, this.message));
-            else player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(color(npeColor, this.message)));
+            if (type.equals("message")) {
+                player.sendMessage(npeColor + this.message);
+            } else {
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(npeColor + this.message));
+            }
             return;
         }
+
         event.setCancelled(true);
         String format = String.format("%s: ", event.getFormat().split(":")[0]);
-        TextComponent component = new TextComponent(format);
+        TextComponent component = new TextComponent(TextComponent.fromLegacyText(format));
         String display = handItem.getItemMeta().getDisplayName().equals("")
                 ? getItemTranslationKey(handItem)
-                : color(itemColor, handItem.getItemMeta().getDisplayName());
+                : ChatColor.stripColor(handItem.getItemMeta().getDisplayName());
 
         TextComponent componentItem = new TextComponent("[");
         componentItem.addExtra(new TranslatableComponent(display));
@@ -80,10 +85,9 @@ public class ItemLinked extends JavaPlugin implements Listener {
                 component.addExtra(componentItem);
             }
         }
+
         player.spigot().sendMessage(component);
     }
-
-    private String color(String color, String message) { return ChatColor.of(color) + message; }
 
     public HoverEvent getItemHoverFrom(ItemStack bukkitItem) {
         net.minecraft.world.item.ItemStack item = CraftItemStack.asNMSCopy(bukkitItem);
