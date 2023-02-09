@@ -62,7 +62,7 @@ public class ItemLinked extends JavaPlugin implements Listener {
                 : color(itemColor, handItem.getItemMeta().getDisplayName());
 
         TextComponent componentItem = new TextComponent("[");
-        componentItem.addExtra(new TranslatableComponent(display)); // 번역 안돼면 [] 빼기
+        componentItem.addExtra(new TranslatableComponent(display));
         componentItem.addExtra(new TextComponent("]"));
         componentItem.setColor(ChatColor.of(itemColor));
         componentItem.setHoverEvent(getItemHoverFrom(handItem));
