@@ -78,7 +78,7 @@ public class ItemLinked extends JavaPlugin implements Listener {
             return;
         }
 
-        String[] messages = message.split("\\[item]");
+        String[] messages = message.split(String.format("\\%s", link));
         for (int i = 0; i < messages.length; i++) {
             component.addExtra(messages[i]);
             if (i != messages.length - 1 || message.endsWith(link)) {
