@@ -5,6 +5,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import net.minecraft.core.IRegistry;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -103,7 +104,9 @@ public class ItemLinked extends JavaPlugin implements Listener {
         }
 
         getLogger().info(ChatColor.stripColor(component.toLegacyText()));
-        player.spigot().sendMessage(component);
+        for (Player players : Bukkit.getOnlinePlayers()) {
+            players.spigot().sendMessage(component);
+        }
     }
 
 }
