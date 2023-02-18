@@ -1,5 +1,6 @@
 package kr.acog.itemLinked;
 
+import ch.njol.skript.variables.Variables;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
@@ -88,14 +89,11 @@ public class ItemLinked extends JavaPlugin implements Listener {
         componentItem.setColor(ChatColor.of(itemLinkMessageColor));
         componentItem.setHoverEvent(ItemLinked.getItemHoverFrom(handItem));
 
+        String[] messages = message.split(String.format("\\%s", itemLink));
 
         if (message.equals(itemLink)) {
             component.addExtra(componentItem);
-            player.spigot().sendMessage(component);
-            return;
         }
-
-        String[] messages = message.split(String.format("\\%s", itemLink));
         for (int i = 0; i < messages.length; i++) {
             component.addExtra(messages[i]);
             if (i != messages.length - 1 || message.endsWith(itemLink)) {
@@ -103,10 +101,40 @@ public class ItemLinked extends JavaPlugin implements Listener {
             }
         }
 
+        Object variable = Variables.getVariable(String.format("chat::%s", player.getUniqueId()), null, false);
+        if (variable != null) {
+            event.getRecipients().clear();
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                if (event.getPlayer().getLocation().distanceSquared(onlinePlayer.getLocation()) <= 200 * 200) {
+                    event.getRecipients().add(onlinePlayer);
+                }
+            }
+        }
         getLogger().info(ChatColor.stripColor(component.toLegacyText()));
-        for (Player players : Bukkit.getOnlinePlayers()) {
+        for (Player players : event.getRecipients()) {
             players.spigot().sendMessage(component);
         }
     }
 
 }
+/*
+on chat:
+    if {cldgh1::%uuid of player%} is set:
+        if {chat::%player's uuid%} is set:
+            set chat recipients to all players in radius 200 around the player
+            if {rank::%uuid of player%} is "½" or "⅓" or "ㅻ":
+                add ops to chat recipients
+            set chat format to "%{cldgh1::%uuid of player%}% %{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
+        else:
+            remove {chatall::*} from chat recipients
+            set chat format to "&7[&6전체&7] &f%{cldgh1::%uuid of player%}% %{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
+    if {cldgh1::%uuid of player%} is not set:
+        if {chat::%player's uuid%} is set:
+            set chat recipients to all players in radius 200 around the player
+            if {rank::%uuid of player%} is "½" or "⅓" or "ㅻ":
+                add ops to chat recipients
+            set chat format to "%{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
+        else:
+            remove {chatall::*} from chat recipients
+            set chat format to "&7[&6전체&7] &f%{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
+ */

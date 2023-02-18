@@ -56,5 +56,10 @@
       <option name="name" value="maven6" />
       <option name="url" value="https://papermc.io/repo/repository/maven-releases/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven5" />
+      <option name="name" value="maven5" />
+      <option name="url" value="https://repo.skriptlang.org/releases" />
+    </remote-repository>
   </component>
 </project>
