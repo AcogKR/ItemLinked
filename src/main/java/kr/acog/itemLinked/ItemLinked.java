@@ -99,24 +99,4 @@ public class ItemLinked extends JavaPlugin implements Listener {
 
 
 }
-/*
-on chat:
-    if {cldgh1::%uuid of player%} is set:
-        if {chat::%player's uuid%} is set:
-            set chat recipients to all players in radius 200 around the player
-            if {rank::%uuid of player%} is "½" or "⅓" or "ㅻ":
-                add ops to chat recipients
-            set chat format to "%{cldgh1::%uuid of player%}% %{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
-        else:
-            remove {chatall::*} from chat recipients
-            set chat format to "&7[&6전체&7] &f%{cldgh1::%uuid of player%}% %{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
-    if {cldgh1::%uuid of player%} is not set:
-        if {chat::%player's uuid%} is set:
-            set chat recipients to all players in radius 200 around the player
-            if {rank::%uuid of player%} is "½" or "⅓" or "ㅻ":
-                add ops to chat recipients
-            set chat format to "%{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
-        else:
-            remove {chatall::*} from chat recipients
-            set chat format to "&7[&6전체&7] &f%{color::%uuid of player%}%%player%&f%{rank::%uuid of player%}%: %message%"
- */
+
