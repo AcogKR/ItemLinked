@@ -15,11 +15,28 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
+
 public class ItemLinked extends JavaPlugin implements Listener {
+    public String link;
+    public String itemColor;
+    public String error;
+    public String errorColor;
+    public String errorType;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        try {
+            link = getConfig().getString("options.item-linked", "[item]");
+            itemColor = getConfig().getString("option.npe-message-color", "#B02C3A");
+            error = getConfig().getString("options.npe-item-message", "You have no items in your hand.");
+            errorType = getConfig().getString("options.npe-message-type", "actionbar");
+            errorColor = getConfig().getString("options.item-color", "#B5D1B6");
+        } catch (NullPointerException npe) {
+            getLogger().log(Level.SEVERE, "There is a problem with the form in Config.yml");
+            saveDefaultConfig();
+        }
         getServer().getPluginManager().registerEvents(this, this);
     }
 
@@ -27,13 +44,6 @@ public class ItemLinked extends JavaPlugin implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         String message = event.getMessage();
-
-        String link = getConfig().getString("option.item-linked", "[item]"),
-                itemColor = getConfig().getString("options.item-color", "#B5D1B6"),
-                error = getConfig().getString("options.npe-item-message", "You have no items in your hand."),
-                errorColor = getConfig().getString("option.npe-message-color", "#B02C3A"),
-                errorType = getConfig().getString("options.npe-message-type", "actionbar");
-
 
         if (!message.equalsIgnoreCase(link)) {
             return;
