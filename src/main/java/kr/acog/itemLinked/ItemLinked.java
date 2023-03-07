@@ -5,6 +5,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import net.minecraft.core.IRegistry;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -64,10 +65,11 @@ public class ItemLinked extends JavaPlugin implements Listener {
         String display = handItem.getItemMeta().getDisplayName().equals("")
                 ? CraftItemStack.asNMSCopy(handItem).p()
                 : ChatColor.stripColor(handItem.getItemMeta().getDisplayName());
-        String translate = new TranslatableComponent(display).getTranslate();
 
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(format));
-        TextComponent componentItem = new TextComponent(String.format("[%s]", translate));
+        TextComponent componentItem = new TextComponent("[");
+        componentItem.addExtra(new TranslatableComponent(display));
+        componentItem.addExtra("]");
         componentItem.setColor(ChatColor.of(itemColor));
         componentItem.setHoverEvent(ItemLinked.getItemHoverFrom(handItem));
 
