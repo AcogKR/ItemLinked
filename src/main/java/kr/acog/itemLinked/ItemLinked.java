@@ -61,8 +61,8 @@ public class ItemLinked extends JavaPlugin implements Listener {
         }
 
         event.setCancelled(true);
-        String format = String.format("<%s> ", player.getName()); // event.getFormat().split(":")[0]
-        String display = handItem.getItemMeta().getDisplayName().equals("")
+        String format = String.format("<%s> ", player.getName());
+        String display = handItem.getItemMeta().getDisplayName().isEmpty()
                 ? CraftItemStack.asNMSCopy(handItem).p()
                 : ChatColor.stripColor(handItem.getItemMeta().getDisplayName());
 
