@@ -8,8 +8,6 @@ version '2.0.0'
 repositories {
     mavenCentral()
     mavenLocal()
-    maven { url 'https://libraries.minecraft.net/' }
-    maven { url 'https://repo.skriptlang.org/releases' }
 }
 
 compileJava.options.encoding 'UTF-8'
