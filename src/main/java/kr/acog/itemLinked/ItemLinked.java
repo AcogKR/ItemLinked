@@ -5,7 +5,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Item;
 import net.minecraft.core.IRegistry;
-import org.bukkit.Bukkit;
+
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_19_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
@@ -46,7 +46,7 @@ public class ItemLinked extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
-        if (!message.equalsIgnoreCase(link)) {
+        if (!message.contains(link)) {
             return;
         }
 
@@ -61,7 +61,7 @@ public class ItemLinked extends JavaPlugin implements Listener {
         }
 
         event.setCancelled(true);
-        String format = String.format("%s: ", event.getFormat().split(":")[0]);
+        String format = String.format("<%s> ", player.getName()); // event.getFormat().split(":")[0]
         String display = handItem.getItemMeta().getDisplayName().equals("")
                 ? CraftItemStack.asNMSCopy(handItem).p()
                 : ChatColor.stripColor(handItem.getItemMeta().getDisplayName());
